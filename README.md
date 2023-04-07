@@ -1,5 +1,8 @@
 # ConecptX_Converter
-A converter tool for transforming ConceptX activation files into Word2Vec format 
+
+This tool is designed for converting [ConceptX](https://github.com/hsajjad/ConceptX) activation files into Word2Vec format. The resulting Word2Vec file can be used with gensim library in Python to find **semantically** similar words.
+<br><br>
+This tool could be built as a binary file, or it could be run as a cargo project. The following sections describe how to build and run the tool.
 
 ## Usage
 Generate a word2vec file from a ConceptX activation file. 
