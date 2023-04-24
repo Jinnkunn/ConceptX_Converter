@@ -1,12 +1,14 @@
 use serde::{Deserialize, Serialize};
 use std::io::BufRead;
 
+// Activation for a line
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Activation {
     pub linex_index: usize,
     pub features: Vec<Feature>,
 }
 
+// Embedding for a token
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Feature {
     pub token: String,
