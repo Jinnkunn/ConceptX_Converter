@@ -5,7 +5,16 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+name = "concept_x_converter"
+crate-type = ["cdylib"]
+
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 regex = "1.0"
+
+[dependencies.pyo3]
+version = "0.18.0"
+# "abi3-py37" tells pyo3 (and maturin) to build using the stable ABI with minimum Python version 3.7
+features = ["abi3-py37", "extension-module", "generate-import-lib"]
