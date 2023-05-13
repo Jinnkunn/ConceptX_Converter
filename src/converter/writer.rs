@@ -1,4 +1,5 @@
 use std::io::Write;
+use indicatif::ProgressBar;
 
 use super::reader::Activation;
 
@@ -14,10 +15,16 @@ pub fn to_w2v(activations: &Vec<Activation>, output_file_name: &str) {
     // write number of activations and vector size to the first line
     let number_of_activations = activations.iter().map(|x| x.features.len()).sum::<usize>();
     let vec_size = activations[0].features[0].layers[0].values.len();
+
+    // initialize progress bar
+    let pb = ProgressBar::new(number_of_activations as u64);
+
     writeln!(output_file, "{} {}", number_of_activations, vec_size).unwrap();
 
     // for each activation
     for activation in activations {
+        pb.inc(1);
+
         let mut features_index = 0;
         for feature in &activation.features {
             // the word will be in the format of "word:line_number:word_index"

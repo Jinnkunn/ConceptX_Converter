@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 use std::io::BufRead;
+use indicatif::ProgressBar;
 
 // Activation for a line
 #[derive(Serialize, Deserialize, Debug)]
@@ -25,9 +26,13 @@ impl Activation {
     pub fn from_file(path: &str) -> Vec<Activation> {
         let file = std::fs::File::open(path).unwrap();
         let mut activations: Vec<Activation> = Vec::new();
+
+        // initialize progress bar
+        let pb = ProgressBar::new_spinner();
         
         // for loop to read line by line
         for line in std::io::BufReader::new(file).lines() {
+            pb.inc(1);
             let line = match line {
                 Ok(line) => line,
                 Err(_) => {
