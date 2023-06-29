@@ -1,10 +1,15 @@
 use super::reader::Activation;
 use indicatif::ProgressBar;
+use rand::prelude::*;
+use rand_chacha::ChaCha8Rng;
 
 
-pub fn filter(activations: &Vec<Activation>, min: i64, max: i64, keep_value: f64) -> Vec<Activation> {
+pub fn filter(activations: &Vec<Activation>, min: i64, keep_value: f64, seed: u64) -> Vec<Activation> {
     // create a map, the key is the Feature token, the value is times of occurance
     let mut map: std::collections::HashMap<String, i64> = std::collections::HashMap::new();
+
+    // set seed to the random number generator
+    let mut r = ChaCha8Rng::seed_from_u64(seed);
 
     println!("Start Counting!");
     let pb = ProgressBar::new(activations.len() as u64);
@@ -28,12 +33,14 @@ pub fn filter(activations: &Vec<Activation>, min: i64, max: i64, keep_value: f64
         for feature in &activation.features {
             let token = &feature.token;
             let count = map.get(token).unwrap();
-            if *count >= min && *count <= max {
+            if *count >= min {
                 if keep_value < 0.0 {
                     new_features.push(feature.clone());
                 }
                 else {
-                    if rand::random::<f64>() < keep_value / *count as f64 {
+                    // keep value is a integer, how many times to keep
+                    // the keep rate should be keep_value / count
+                    if r.gen::<f64>() < keep_value / *count as f64 {
                         new_features.push(feature.clone());
                     }
                 }

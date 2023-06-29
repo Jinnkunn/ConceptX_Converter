@@ -3,7 +3,7 @@ use pyo3::prelude::*;
 mod converter;
 
 #[pyfunction]
-fn processor(input: &str, output: &str, min: Option<i64>, max: Option<i64>, keep: Option<i64>) {
+fn processor(input: &str, output: &str, min: Option<i64>, keep: Option<i64>, seed: Option<u64>){
     // read read args
     // let args: Vec<String> = std::env::args().collect();
     // let input_file_name = &args[1];
@@ -19,11 +19,19 @@ fn processor(input: &str, output: &str, min: Option<i64>, max: Option<i64>, keep
         _ => {},
     }
 
+    let mut seed_value = 0;
+    match seed {
+        Some(seed) => {
+            seed_value = seed;
+        },
+        _ => {},
+    }
+
     // if min or max is None, then do not filter
-    match (min, max) {
-        (Some(min), Some(max)) => {
+    match min {
+        Some(min) => {
             println!("Start Filtering!");
-            activations = converter::filter::filter(&activations, min, max, keep_value as f64);
+            activations = converter::filter::filter(&activations, min, keep_value as f64, seed_value);
         },
         _ => {},
     }
