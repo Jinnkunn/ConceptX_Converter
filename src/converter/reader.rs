@@ -3,20 +3,20 @@ use std::io::BufRead;
 use indicatif::ProgressBar;
 
 // Activation for a line
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Activation {
     pub linex_index: usize,
     pub features: Vec<Feature>,
 }
 
 // Embedding for a token
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Feature {
     pub token: String,
     pub layers: Vec<Layer>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Layer {
     index: usize,
     pub values: Vec<f64>,

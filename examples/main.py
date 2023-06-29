@@ -1,7 +1,11 @@
-import concept_x_converter;
+import concept_x_converter
 
 if __name__ == "__main__":
+    print(concept_x_converter.version())
+
     concept_x_converter.processor(
-        input = "./activation-layer12.json",
-        output = "output.txt",
+        input="./activation-layer12.json",
+        output="output2.txt",
+        min=10,
+        max=100,
     )
