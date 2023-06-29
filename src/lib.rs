@@ -31,7 +31,7 @@ fn processor(input: &str, output: &str, min: Option<i64>, keep: Option<i64>, see
     match min {
         Some(min) => {
             println!("Start Filtering!");
-            activations = converter::filter::filter(&activations, min, keep_value as f64, seed_value);
+            activations = converter::filter::filter(&activations, min, keep_value, seed_value);
         },
         _ => {},
     }
