@@ -27,12 +27,17 @@ impl Activation {
         let file = std::fs::File::open(path).unwrap();
         let mut activations: Vec<Activation> = Vec::new();
 
+        // get the size of the file
+        let metadata = std::fs::metadata(path).unwrap();
+
         // initialize progress bar
-        let pb = ProgressBar::new_spinner();
+        let pb = ProgressBar::new(metadata.len());
         
         // for loop to read line by line
         for line in std::io::BufReader::new(file).lines() {
-            pb.inc(1);
+            // update progress bar
+            pb.inc(line.as_ref().unwrap().len() as u64 + 1);
+
             let line = match line {
                 Ok(line) => line,
                 Err(_) => {
