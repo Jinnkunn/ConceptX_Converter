@@ -31,8 +31,6 @@ pub fn to_w2v(activations: &Vec<Activation>, output_file_name: &str) {
 
     // for each activation
     for activation in activations {
-        pb.inc(1);
-
         let mut features_index = 0;
         for feature in &activation.features {
             // the word will be in the format of "word:line_number:word_index"
@@ -43,7 +41,10 @@ pub fn to_w2v(activations: &Vec<Activation>, output_file_name: &str) {
             writeln!(output_file, "{} {}", word, vec_str).unwrap();
             features_index += 1;
         }
+        pb.inc(1);
     }
+
+    pb.finish_and_clear();
 
     // close output_file
     output_file.flush().unwrap();

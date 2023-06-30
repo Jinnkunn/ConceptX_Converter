@@ -21,10 +21,11 @@ pub fn filter(activations: &Vec<Activation>, min: i64, keep_value: i64, seed: u6
         }
         pb.inc(1);
     }
+    pb.finish_and_clear();
 
 
     println!("Start Filtering based on then counted value!");
-    let pb = ProgressBar::new(activations.len() as u64);
+    let pb_filter = ProgressBar::new(activations.len() as u64);
     // go through Activation, if the Feature token is in the map and the value is in the range, keep it
     // otherwise, remove it
     let mut new_activations: Vec<Activation> = Vec::new();
@@ -50,8 +51,9 @@ pub fn filter(activations: &Vec<Activation>, min: i64, keep_value: i64, seed: u6
             linex_index: activation.linex_index,
             features: new_features,
         });
-        pb.inc(1);
+        pb_filter.inc(1);
     }
+    pb_filter.finish_and_clear();
 
 
     new_activations

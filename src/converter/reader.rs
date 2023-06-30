@@ -56,6 +56,8 @@ impl Activation {
             };
         }
 
+        pb.finish_and_clear();
+
         activations
     }
 }
