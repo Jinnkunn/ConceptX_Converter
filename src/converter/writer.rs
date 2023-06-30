@@ -13,7 +13,7 @@ pub fn to_w2v(activations: &Vec<Activation>, output_file_name: &str) {
     let mut output_file = std::fs::File::create(output_file_name).unwrap();
 
     // write number of activations and vector size to the first line
-    let number_of_activations = activations.iter().map(|x| x.features.len()).sum::<usize>();
+    let number_of_activations = activations.len();
 
     // find the first activation that has a feature
     let mut vec_size = 0;
