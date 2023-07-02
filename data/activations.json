@@ -1,0 +1,1 @@
+{"linex_index": 0, "features": [{"token": "[CLS]0", "layers": [{"index": 0, "values": [1, 2, 3]}]}, {"token": "Hello", "layers": [{"index": 0, "values": [4,5,6]}]}, {"token": "H##i", "layers": [{"index": 0, "values": [7, 8, 9]}]}]}
