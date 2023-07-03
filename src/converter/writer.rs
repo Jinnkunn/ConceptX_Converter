@@ -25,7 +25,7 @@ pub fn to_w2v(activations: &Vec<Activation>, output_file_name: &str) {
     }
 
     // initialize progress bar
-    let pb = ProgressBar::new(activations.len() as u64);
+    let pb = ProgressBar::new(number_of_tokens as u64);
 
     writeln!(output_file, "{} {}", number_of_tokens, vec_size).unwrap();
 
@@ -40,8 +40,8 @@ pub fn to_w2v(activations: &Vec<Activation>, output_file_name: &str) {
             // write word and vec to output_file
             writeln!(output_file, "{} {}", word, vec_str).unwrap();
             features_index += 1;
+            pb.inc(1);
         }
-        pb.inc(1);
     }
 
     pb.finish_and_clear();
