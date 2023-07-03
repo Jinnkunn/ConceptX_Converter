@@ -47,7 +47,11 @@ impl Activation {
             };
             match serde_json::from_str::<Activation>(&line) {
                 Ok(mut activation) => {
-                    activation.features.iter_mut().for_each(|x| x.token = x.token.replace("##", ""));
+                    activation.features.iter_mut().for_each(|x| {
+                        x.token = x.token.replace("##", "");
+                        // for roberta
+                        x.token = x.token.replace("Ġ", "");
+                    });
                     activations.push(activation);
                 },
                 Err(_) => {
