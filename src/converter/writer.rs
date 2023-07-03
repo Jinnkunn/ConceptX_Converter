@@ -13,7 +13,7 @@ pub fn to_w2v(activations: &Vec<Activation>, output_file_name: &str) {
     let mut output_file = std::fs::File::create(output_file_name).unwrap();
 
     // write number of activations and vector size to the first line
-    let number_of_activations = activations.len();
+    let number_of_tokens = activations.iter().map(|x| x.features.len()).sum::<usize>();
 
     // find the first activation that has a feature
     let mut vec_size = 0;
@@ -25,9 +25,9 @@ pub fn to_w2v(activations: &Vec<Activation>, output_file_name: &str) {
     }
 
     // initialize progress bar
-    let pb = ProgressBar::new(number_of_activations as u64);
+    let pb = ProgressBar::new(activations.len() as u64);
 
-    writeln!(output_file, "{} {}", number_of_activations, vec_size).unwrap();
+    writeln!(output_file, "{} {}", number_of_tokens, vec_size).unwrap();
 
     // for each activation
     for activation in activations {
